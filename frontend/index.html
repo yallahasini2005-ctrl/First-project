@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#b91c36">
+  <meta name="description" content="Find willing blood donors and share urgent blood requests in your community.">
+  <title>LifeLink — Blood Donor Directory</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#home" aria-label="LifeLink home"><span class="brand-mark">♥</span><span>LifeLink<small>Blood donor community</small></span></a>
+    <nav id="main-nav" aria-label="Main navigation"><a href="#directory">Find donors</a><a href="#requests">Urgent requests</a><button id="logout-button" class="button button-outline hidden" type="button">Log out</button></nav>
+  </header>
+  <main>
+    <section id="home" class="hero">
+      <div class="hero-copy"><span class="eyebrow">GIVE BLOOD. GIVE HOPE.</span><h1>A small act can<br><em>save a life.</em></h1><p>Connect willing blood donors with people who need help urgently. Every connection can make a difference.</p><div class="hero-actions"><a class="button button-light" href="#directory">Find a donor <span>→</span></a><a class="hero-link" href="#requests">View urgent requests</a></div><p class="notice">For emergencies, contact a hospital or local emergency service directly. This community directory does not replace medical advice.</p></div>
+      <div class="hero-art" aria-hidden="true"><div class="pulse pulse-one"></div><div class="pulse pulse-two"></div><div class="heart">♥</div><div class="art-tag"><span class="dot"></span> Community-powered care</div></div>
+    </section>
+    <section id="auth-panel" class="auth-panel">
+      <div><span class="eyebrow">JOIN THE COMMUNITY</span><h2>Be there when it matters.</h2><p>Create an account to list yourself as a donor or publish an emergency request.</p></div>
+      <div class="auth-card"><div class="tabs"><button class="tab active" data-auth-tab="login" type="button">Log in</button><button class="tab" data-auth-tab="register" type="button">Create account</button></div>
+        <form id="login-form" class="auth-form"><label>Email address<input name="email" type="email" autocomplete="email" required></label><label>Password<input name="password" type="password" autocomplete="current-password" required></label><button class="button button-primary full" type="submit">Log in</button></form>
+        <form id="register-form" class="auth-form hidden"><label>Full name<input name="full_name" minlength="2" maxlength="80" autocomplete="name" required></label><label>Email address<input name="email" type="email" autocomplete="email" required></label><label>Phone number<input name="phone" type="tel" minlength="7" maxlength="20" autocomplete="tel" required></label><label>Password<input name="password" type="password" minlength="8" autocomplete="new-password" required><small>8+ characters with uppercase, lowercase, number and symbol.</small></label><button class="button button-primary full" type="submit">Create account</button></form>
+      </div>
+    </section>
+    <section id="workspace" class="workspace hidden">
+      <div class="section-heading"><div><span class="eyebrow">YOUR COMMUNITY DASHBOARD</span><h2>Welcome, <span id="welcome-name">friend</span></h2></div><span class="secure-label">● Signed in</span></div>
+      <div class="dashboard-grid">
+        <section class="panel"><div class="panel-heading"><div><span class="panel-icon">♥</span><h3>My donor profile</h3></div><p>Tell nearby people when you can donate.</p></div>
+          <form id="donor-form" class="form-grid"><label>Blood group<select name="blood_group" required><option value="">Choose blood group</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option><option>O+</option><option>O-</option></select></label><label>City<input name="city" maxlength="80" required placeholder="e.g. Hyderabad"></label><label>Contact phone<input name="phone" type="tel" maxlength="20" required></label><label>Last donation date <span class="optional">(optional)</span><input name="last_donation_date" type="date"></label><label class="check-row"><input name="available" type="checkbox" checked> I am currently available to donate</label><button class="button button-primary" type="submit">Save donor profile</button></form>
+        </section>
+        <section class="panel"><div class="panel-heading"><div><span class="panel-icon pale">!</span><h3>Post an emergency request</h3></div><p>Share accurate details so donors can respond.</p></div>
+          <form id="request-form" class="form-grid"><label>Patient name<input name="patient_name" maxlength="80" required></label><label>Blood group<select name="blood_group" required><option value="">Choose blood group</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option><option>O+</option><option>O-</option></select></label><label>Units needed<input name="units_needed" type="number" min="1" max="10" step="1" value="1" required></label><label>Hospital<input name="hospital" maxlength="120" required></label><label>City<input name="city" maxlength="80" required></label><label>Contact phone<input name="contact_phone" type="tel" maxlength="20" required></label><label>Needed by<input name="needed_by" type="datetime-local" required></label><label class="span-two">Additional details <span class="optional">(optional)</span><textarea name="notes" maxlength="500" rows="2" placeholder="Ward, timing, or other useful details"></textarea></label><button class="button button-primary" type="submit">Publish request</button></form>
+        </section>
+      </div>
+    </section>
+    <section id="directory" class="content-section"><div class="section-heading"><div><span class="eyebrow">DONOR DIRECTORY</span><h2>Find a willing donor</h2><p>Search available donor profiles by blood group and city.</p></div><span class="count-pill" id="donor-count">Log in to search</span></div>
+      <form id="donor-search" class="search-bar"><label class="search-field">Blood group<select name="blood_group"><option value="">All blood groups</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option><option>O+</option><option>O-</option></select></label><label class="search-field">City<input name="city" placeholder="Search by city"></label><button class="button button-dark" type="submit">Search donors</button></form><div id="donor-results" class="card-grid"><div class="empty-state">Log in to browse donor profiles.</div></div>
+    </section>
+    <section id="requests" class="content-section request-section"><div class="section-heading"><div><span class="eyebrow">COMMUNITY HELP BOARD</span><h2>Urgent blood requests</h2><p>Check active requests and contact the requester using the details provided.</p></div><label class="status-filter">Show<select id="request-status"><option value="open">Open requests</option><option value="">All requests</option><option value="fulfilled">Fulfilled</option><option value="cancelled">Cancelled</option></select></label></div><div id="request-results" class="request-list"><div class="empty-state">Log in to view community requests.</div></div></section>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </main>
+  <footer><a class="brand footer-brand" href="#home"><span class="brand-mark">♥</span><span>LifeLink<small>Blood donor community</small></span></a><p>Made to connect people with care. Verify all medical and donor details directly before acting.</p><span>Student project · HTML, CSS, JavaScript, Node.js & Supabase</span></footer>
+</body>
+</html>
